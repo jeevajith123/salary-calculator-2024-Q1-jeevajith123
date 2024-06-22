@@ -19,7 +19,7 @@ export default function SalaryCalculator() {
             {/*Salary calculator container section */}
             <div className="flex w-full items-center justify-center gap-6 bg-gray-white px-14 py-[142px] md:flex-col md:p-5">
                 {/*Salary Input Section*/}
-                <div className="flex w-680px h-616px mt-142px ml-128px justify-center md:w-full">
+                <div className="flex w-680px h-616px mt-142px ml-128px justify-start">
                     {/*Salary calculation Section*/}
                     <div className="w-full rounded-lg border border-solid border-gray-300 bg-gray-50 p-4">
                         {/*Earning and deduction section*/}
@@ -164,7 +164,7 @@ export default function SalaryCalculator() {
                 </div>
 
                 {/*Salary Summary Section*/}
-                <div className="w-[36%] md:w-full">
+                <div className="w-480px h-614px mt-142px ml-832px">
                     {/*Salary detail Section*/}
                     <div className="flex flex-col items-center gap-[26px] rounded-lg border border-solid border-gray-300 bg-gray-white px-4 py-7 sm:py-5">
                         <Heading size="heading_4" as="h2" className="ml-2 self-start md:ml-0">
@@ -192,7 +192,7 @@ export default function SalaryCalculator() {
                                 <Text as="p"> -8,000.00</Text>
                             </div>   
                             <div className="mt-2.5 flex flex-wrap justify-between gap-5">
-                                <Text as="p"> Employee EPF</Text>
+                                <Text as="p"> Employee EPF (8%)</Text>
                                 <Text as="p"> -12,160.00</Text>
                             </div>   
                             <div className="mt-2.5 flex flex-wrap justify-between gap-5">
@@ -216,12 +216,12 @@ export default function SalaryCalculator() {
                                 </Heading>
                                 <div className="flex flex-col gap-2.5 self-stretch">
                                     <div className="flex flex-wrap justify-between gap-5">
-                                        <Text as="p"> Employer EPF</Text>
-                                        <Text as="p"> 18240.00</Text>
+                                        <Text as="p"> Employer EPF (12%)</Text>
+                                        <Text as="p"> 18,240.00</Text>
                                     </div>
                                     <div className="flex flex-wrap justify-between gap-5">
-                                        <Text as="p"> Employer ETF</Text>
-                                        <Text as="p"> 18240.00</Text>
+                                        <Text as="p"> Employer ETF (3%)</Text>
+                                        <Text as="p"> 4,560.00</Text>
                                     </div>
                                 </div>     
                             </div>
