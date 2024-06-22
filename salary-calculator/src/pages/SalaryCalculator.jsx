@@ -130,21 +130,24 @@ export default function SalaryCalculator() {
                                      Salary, Advances, Loan Deduction and all
                                     </Text>
                                 </div>
-                                <div className="flex w-[62%] items-center gap-2 md:w-full sm:flex-row">
-                                    <div className="flex flex-1 gap-2 sm:self-stretch">
+                                <div className="flex items-center gap-2 md:w-full sm:flex-row">
+                                    <div className="flex flex-1 gap-1 sm:self-stretch">
                                         <Input name="No Pay Input" 
                                         placeholder={`No Pay`} 
                                         className="flex h-[48px] flex-grow items-center justify-center rounded border border-solid border-gray-300 bg-gray-white pl-3.5 pr-[34px] text-base text-color_usage-text_primary sm:pr-5" 
                                         />
 
-                                        <Input name="No Pay Amount" 
-                                        placeholder={`8,000.00`} 
-                                        className="flex h-[48px] flex-grow items-center justify-center rounded border border-solid border-gray-300 bg-gray-white pl-3.5 pr-[34px] text-base text-color_usage-text_primary sm:pr-5" 
-                                        />
+                                        <Text as="p" className="rounded border border-solid border-gray-300 bg-gray-white py-3.5 pl-[34px] pr-3.5 sm:pl-5">
+                                            8,000.00
+                                        </Text>
                                     </div>
-                                    <Button className="flex h-[32px] w-[32px] items-center justify-center rounded-[16px] bg-gray-200 px-1">
-                                        <img src={Close} alt="Close" />
-                                    </Button>
+                                    <div className="flex w-full ml-3px gap-1 sm:w-[28%]">
+                                            <Button className="flex h-[32px] w-[32px] items-center justify-center rounded-[16px] bg-gray-200 px-1">
+                                                <img src={Close} alt="Close" />
+                                            </Button>
+                       
+                                    </div>
+                                    
                                 </div>
                             </div>
                             <a href="#">
@@ -208,9 +211,8 @@ export default function SalaryCalculator() {
                         {/*employer contribution section*/}
                         <div className="mb-[68px] ml-2 mr-3.5 flex flex-col gap-[34px] self-stretch md:mx-0"> 
                             <div className="flex flex-col items-start gap-3.5">
-                                <Heading size="body__default__semibold" as="p" className="!text-color_usage-text_secondary">
+                                <Heading size="body__default__semibold" as="h3" className="!text-color_usage-text_secondary">
                                     Contribution from the Employer
-
                                 </Heading>
                                 <div className="flex flex-col gap-2.5 self-stretch">
                                     <div className="flex flex-wrap justify-between gap-5">
