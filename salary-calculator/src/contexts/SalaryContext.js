@@ -27,12 +27,12 @@ export const SalaryProvider = ({ children }) => {
     setDeductions([...deductions, { id: Date.now(), title: "", amount: 0 }]);
   };
 
-  const handleRemoveEarning = (id) => {
-    setEarnings(earnings.filter((earning) => earning.id !== id));
+  const handleRemoveEarning = (indexToRemove) => {
+    setEarnings((currentEarnings) => currentEarnings.filter((_, index) => index !== indexToRemove));
   };
 
-  const handleRemoveDeduction = (id) => {
-    setDeductions(deductions.filter((deduction) => deduction.id !== id));
+  const handleRemoveDeduction = (indexToRemove) => {
+    setDeductions((currentDeductions) => currentDeductions.filter((_, index) => index !== indexToRemove));
   };
 
   const handleReset = () => {

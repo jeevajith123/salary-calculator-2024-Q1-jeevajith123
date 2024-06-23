@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { Text, Input, Button, Heading, CheckBox } from "../components";
+import { Text, Input, Heading, CheckBox } from "../components";
 import { useSalaryContext } from "../contexts/SalaryContext";
 import Link from "../assets/_Link.png";
 import Close from "../assets/Group 821.png";
@@ -21,7 +21,35 @@ export default function SalaryCalculator() {
         handleRemoveEarning,
         handleRemoveDeduction,
         handleReset,
-      } = useSalaryContext();
+    } = useSalaryContext();
+
+    
+    useEffect(() => {
+        // Load persisted data when the component mounts
+        const storedBasicSalary = localStorage.getItem('basicSalary');
+        const storedEarnings = localStorage.getItem('earnings');
+        const storedDeductions = localStorage.getItem('deductions');
+
+        if (storedBasicSalary) setBasicSalary(JSON.parse(storedBasicSalary));
+        if (storedEarnings) setEarnings(JSON.parse(storedEarnings));
+        if (storedDeductions) setDeductions(JSON.parse(storedDeductions));
+    }, [setBasicSalary, setDeductions, setEarnings]);
+
+    // Persist basicSalary to localStorage whenever it changes
+    useEffect(() => {
+        localStorage.setItem('basicSalary', JSON.stringify(basicSalary));
+    }, [basicSalary]);
+
+    // Persist earnings to localStorage whenever it changes
+    useEffect(() => {
+        localStorage.setItem('earnings', JSON.stringify(earnings));
+    }, [earnings]);
+
+    // Persist deductions to localStorage whenever it changes
+    useEffect(() => {
+        localStorage.setItem('deductions', JSON.stringify(deductions));
+    }, [deductions]);
+
 
     const calculateNetSalary = () => {
         // Calculate total earnings by summing up all earnings
@@ -41,12 +69,6 @@ export default function SalaryCalculator() {
     
         // Calculate Employee EPF (8% of Gross Salary for EPF)
         const employeeEPF = grossSalaryForEPF * 0.08;
-    
-        // Calculate Employer EPF (12% of Gross Salary for EPF)
-        const employerEPF = grossSalaryForEPF * 0.12;
-    
-        // Calculate Employer ETF (3% of Gross Salary for EPF)
-        const employerETF = grossSalaryForEPF * 0.03;
     
         // Calculate APIT (Advanced Personal Income Tax)
         const apit = (grossEarnings * 0.18) - 25500;
@@ -104,9 +126,10 @@ export default function SalaryCalculator() {
                                         Calculate Your Salary
                                     </Heading>
                                     {/* Reset Button */}
-                                    <a href="#" onClick={handleReset} className="flex items-end py-1">
+                                   
+                                    <button onClick={handleReset} className="flex items-end py-1" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
                                         <img src={Link} alt="reset" className="h-[32px] w-[32px]" />
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
 
@@ -157,12 +180,13 @@ export default function SalaryCalculator() {
                                                 />
                                             </div>
                                             <div className="flex w-full items-center justify-center gap-4 sm:w-[28%]">
-                                                <Button
-                                                    className="flex h-[32px] w-[32px] items-center justify-center rounded-[16px] bg-gray-200 px-1"
-                                                    onClick={() => handleRemoveEarning(index)}
-                                                >
-                                                    <img src={Close} alt="Close" />
-                                                </Button>
+                                            <button
+                                                type="button"
+                                                className="flex h-[32px] w-[32px] items-center justify-center rounded-[16px] bg-gray-200 px-1"
+                                                onClick={() => handleRemoveEarning(index)}
+                                            >
+                                                <img src={Close} alt="Close" />
+                                            </button>
                                                 <CheckBox
                                                     name={`EPF ETF Checkbox ${index}`}
                                                     label="EPF/ETF"
@@ -181,14 +205,14 @@ export default function SalaryCalculator() {
                                 </div>
 
                                 {/* Add New Allowance Section */}
-                                <a href="#" onClick={handleAddEarning}>
+                                <button onClick={handleAddEarning} style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
                                     <div className="flex items-center py-2">
                                         <img src={Add} alt="add_item" className="h-[24px] w-[24px]" />
                                         <Heading size="textxs" as="h5" className="!text-blue-a700">
                                             Add New Allowance
                                         </Heading>
                                     </div>
-                                </a>
+                                </button>
                             </div>
                             <img src={Table} alt="Table" className="mt-4 h-px w-full" />
 
@@ -227,23 +251,27 @@ export default function SalaryCalculator() {
                                                 />
                                             </div>
                                             <div className="flex w-full ml-3px gap-1 sm:w-[28%]">
-                                                <Button className="flex h-[32px] w-[32px] items-center justify-center rounded-[16px] bg-gray-200 px-1" onClick={() => handleRemoveDeduction(index)}>
+                                                <button
+                                                    type="button"
+                                                     className="flex h-[32px] w-[32px] items-center justify-center rounded-[16px] bg-gray-200 px-1"
+                                                     onClick={() => handleRemoveDeduction(index)}
+                                                >       
                                                     <img src={Close} alt="Close" />
-                                                </Button>
+                                                </button>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
 
                                 {/* Add New Deduction Section */}
-                                <a href="#" onClick={handleAddDeduction}>
+                                <button onClick={handleAddDeduction} style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
                                     <div className="flex items-center py-2">
                                         <img src={Add} alt="add_item" className="h-[24px] w-[24px]" />
                                         <Heading size="textxs" as="h5" className="!text-blue-a700">
                                             Add New Deduction
                                         </Heading>
                                     </div>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
