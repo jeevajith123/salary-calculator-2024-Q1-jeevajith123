@@ -89,7 +89,7 @@ export default function SalaryCalculator() {
                 />
             </Helmet>
             {/* Salary Calculator Section */}
-            <div className="flex w-full items-center justify-center gap-6 bg-gray-white px-14 py-[142px] md:flex-row md:p-5">
+            <div className="flex flex-col items-center justify-center gap-6 bg-gray-white px-4 py-8 md:flex-row md:p-5">
                 {/* Salary Input Section */}
                 <div className="flex w-680px h-616px mt-142px ml-128px justify-start">
                     {/* Salary Calculation Section */}
