@@ -43,3 +43,17 @@ The SalaryCalculator application you've provided is designed to help users estim
 |---tailwind.config.js
 
 ```
+
+For the project to build, **these files must exist with exact filenames **
+- `public/index.html` is the page template;
+- `src/index.jsx` is the Javascript entry point.
+
+## `npm start`
+Runs the app in the development mode.<br>
+Open [http://localhost:3000] (http://localhost:3000) to view it in the browser.
+
+## `Install React Router dom`
+- npm install react-router-dom
+
+## `Install React helmet`
+- npm install react-helmet
