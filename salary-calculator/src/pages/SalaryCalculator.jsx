@@ -1,40 +1,26 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Text, Input, Button, Heading, CheckBox } from "../components";
+import { useSalaryContext } from "../contexts/SalaryContext";
 import Link from "../assets/_Link.png";
 import Close from "../assets/Group 821.png";
 import Add from "../assets/add.png";
 import Table from "../assets/Tabel.png";
 
 export default function SalaryCalculator() {
-    const [basicSalary, setBasicSalary] = useState(150000);
-    const [earnings, setEarnings] = useState([{ title: "Travel", amount: 10000, epfEtf: false }]);
-    const [deductions, setDeductions] = useState([{ title: "No Pay", amount: 8000 }]);
-
-    {/*Handle Add earning Section */}
-    const handleAddEarning = () => {
-        setEarnings([...earnings, { title: "", amount: 0, epfEtf: false }]);
-    };
-
-    {/*Handle Add Deduction Section */}
-    const handleAddDeduction = () => {
-        setDeductions([...deductions, { title: "", amount: 0 }]);
-    };
-
-    {/*Handle Remove earning Section */}
-    const handleRemoveEarning = (index) => {
-        setEarnings(earnings.filter((_, i) => i !== index));
-    };
-    {/*Handle Remove earning Section */}
-    const handleRemoveDeduction = (index) => {
-        setDeductions(deductions.filter((_, i) => i !== index));
-    };
-
-    const handleReset = () => {
-        setBasicSalary(150000);
-        setEarnings([{ title: "Travel", amount: 10000, epfEtf: false }]);
-        setDeductions([{ title: "No Pay", amount: 8000 }]);
-    };
+    const {
+        basicSalary,
+        setBasicSalary,
+        earnings,
+        setEarnings,
+        deductions,
+        setDeductions,
+        handleAddEarning,
+        handleAddDeduction,
+        handleRemoveEarning,
+        handleRemoveDeduction,
+        handleReset,
+      } = useSalaryContext();
 
     const calculateNetSalary = () => {
         // Calculate total earnings by summing up all earnings

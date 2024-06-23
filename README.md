@@ -27,6 +27,8 @@ The SalaryCalculator application you've provided is designed to help users estim
 |    |--assets--------- All project Images
 |    |--components----- UI and Detected common components       
 |    |--pages--------   All Route Pages
+|    |--Contexts
+|         |-SalaryContext.js ------- Context API for managing state
 |    |--App.jsx
 |    |--App.test.js
 |    |--index.jsx
