@@ -21,6 +21,8 @@ export default function SalaryCalculator() {
         handleRemoveEarning,
         handleRemoveDeduction,
         handleReset,
+       
+        
     } = useSalaryContext();
 
     
@@ -70,8 +72,25 @@ export default function SalaryCalculator() {
         // Calculate Employee EPF (8% of Gross Salary for EPF)
         const employeeEPF = grossSalaryForEPF * 0.08;
     
-        // Calculate APIT (Advanced Personal Income Tax)
-        const apit = (grossEarnings * 0.18) - 25500;
+        const calculateAPIT = (grossEarnings) => {
+            if (grossEarnings <= 100000) {
+              return 0; // Relief from Tax
+            } else if (grossEarnings <= 141667) {
+              return (grossEarnings * 0.06) - 6000;
+            } else if (grossEarnings <= 183333) {
+              return (grossEarnings * 0.12) - 14500;
+            } else if (grossEarnings <= 225000) {
+              return (grossEarnings * 0.18) - 25500;
+            } else if (grossEarnings <= 266667) {
+              return (grossEarnings * 0.24) - 39000;
+            } else if (grossEarnings <= 308333) {
+              return (grossEarnings * 0.30) - 55000;
+            } else {
+              return (grossEarnings * 0.36) - 73500;
+            }
+          };
+          
+        const apit = calculateAPIT(grossEarnings);
     
         // Calculate Net Salary
         const netSalary = grossEarnings - employeeEPF - apit;
@@ -82,22 +101,27 @@ export default function SalaryCalculator() {
     const calculateCTC = () => {
         // Calculate total earnings for EPF
         const totalEarningsForEPF = basicSalary + earnings.reduce((sum, earning) => sum + (earning.epfEtf ? earning.amount : 0), 0);
-    
+        // console.log(totalEarningsForEPF);
+
         // Calculate gross salary for EPF (EPF/ETF allowed earnings - gross deductions)
         const grossSalaryForEPF = totalEarningsForEPF - deductions.reduce((sum, deduction) => sum + deduction.amount, 0);
-    
+        // console.log(grossSalaryForEPF);
+
         // Calculate employer EPF contribution (12% of gross salary for EPF)
         const employerEPF = grossSalaryForEPF * 0.12;
+        // console.log(employerEPF);
     
         // Calculate employer ETF contribution (3% of gross salary for EPF)
         const employerETF = grossSalaryForEPF * 0.03;
+        // console.log(employerEPF);
 
         // Calculate gross earnings (total earnings minus deductions)
-    const grossEarnings = basicSalary + earnings.reduce((sum, earning) => sum + earning.amount, 0) - deductions.reduce((sum, deduction) => sum + deduction.amount, 0);
-    
+        const grossEarnings = basicSalary + earnings.reduce((sum, earning) => sum + earning.amount, 0) - deductions.reduce((sum, deduction) => sum + deduction.amount, 0);
+        // console.log(employerETF);
+
         // Calculate Cost To Company (CTC)
         const ctc = grossEarnings + employerEPF + employerETF;
-    
+        
         return ctc; // Return CTC formatted to 2 decimal places
     };
     
@@ -140,7 +164,7 @@ export default function SalaryCalculator() {
                                     name="Salary Input"
                                     value={basicSalary}
                                     onChange={(e) => setBasicSalary(Number(e.target.value))}
-                                    className="flex h-[48px] w-[56%] items-center justify-center rounded border border-solid border-gray-300 bg-gray-white pl-3.5 pr-[34px] text-base text-color_usage-text_primary sm:pr-5"
+                                    className="flex h-[48px] w-[70%] items-center justify-center rounded border border-solid border-gray-300 bg-gray-white pl-3.5 pr-[34px] text-base text-color_usage-text_primary sm:pr-5"
                                 />
                             </div>
 
@@ -148,7 +172,7 @@ export default function SalaryCalculator() {
                             <div className="mt-6 flex flex-col gap-3">
                                 <div className="flex flex-col items-start justify-center gap-1.5">
                                     <Heading as="h4">Earnings</Heading>
-                                    <Text size="body___small" as="p" className="!text-color_usage-text_secondary">
+                                    <Text size="body___small" as="p" className="!text-[#757575] !text-color_usage-text_secondary">
                                         Allowance, Fixed Allowance, Bonus and etc.
                                     </Text>
                                 </div>
@@ -221,7 +245,7 @@ export default function SalaryCalculator() {
                             <div className="mt-4 flex flex-col gap-1">
                                 <div className="flex flex-col items-start gap-2">
                                     <Heading as="h6">Deductions</Heading>
-                                    <Text size="body___small" as="p" className="!text-color_usage-text_secondary">
+                                    <Text size="body___small" as="p" className="!text-[#757575] !text-color_usage-text_secondary">
                                         Salary, Advances, Loan Deduction and all
                                     </Text>
                                 </div>
@@ -298,7 +322,9 @@ export default function SalaryCalculator() {
                             </div>
                             <div className="mt-2.5 flex flex-wrap justify-between gap-5">
                                 <Text as="p">Gross Earnings</Text>
-                                <Text as="p">{earnings.reduce((sum, earning) => sum + earning.amount, 0).toFixed(2)}</Text>
+                                <Text as="p">
+                                    {(earnings.reduce((sum, earning) => sum + earning.amount, 0)+basicSalary).toFixed(2)}
+                                </Text>
                             </div>
                             <div className="mt-2.5 flex flex-wrap justify-between gap-5">
                                 <Text as="p">Gross Deductions</Text>
@@ -307,12 +333,14 @@ export default function SalaryCalculator() {
                             <div className="mt-2.5 flex flex-wrap justify-between gap-5">
                                 <Text as="p">Employee EPF (8%)</Text>
                                 <Text as="p">
-                                    {earnings.reduce((sum, earning) => sum + (earning.epfEtf ? (earning.amount * 0.08) : 0), 0).toFixed(2)}
+                                    {((basicSalary + earnings.reduce((sum, earning) => sum + (earning.epfEtf ? earning.amount : 0), 0) - deductions.reduce((sum, deduction) => sum + deduction.amount, 0)) * 0.08).toFixed(2)}
                                 </Text>
                             </div>
                             <div className="mt-2.5 flex flex-wrap justify-between gap-5">
                                 <Text as="p">APIT</Text>
-                                <Text as="p">-3740.00</Text>
+                                <Text as="p">
+                                    {(((basicSalary + earnings.reduce((sum, earning) => sum+earning.amount , 0) - deductions.reduce((sum, deduction) => sum + deduction.amount, 0)) * 0.18)-25500).toFixed(2)}
+                                </Text>
                             </div>
                         </div>
                         <div className="flex flex-wrap justify-between gap-5 self-stretch rounded border-[0.78px] border-solid border-gray-300 p-4">
@@ -334,13 +362,13 @@ export default function SalaryCalculator() {
                                     <div className="flex flex-wrap justify-between gap-5">
                                         <Text as="p">Employer EPF (12%)</Text>
                                         <Text as="p">
-                                            {earnings.reduce((sum, earning) => sum + (earning.epfEtf ? (earning.amount * 0.12) : 0), 0).toFixed(2)}
+                                        {((basicSalary + earnings.reduce((sum, earning) => sum + (earning.epfEtf ? earning.amount : 0), 0) - deductions.reduce((sum, deduction) => sum + deduction.amount, 0)) * 0.12).toFixed(2)}
                                         </Text>
                                     </div>
                                     <div className="flex flex-wrap justify-between gap-5">
                                         <Text as="p">Employer ETF (3%)</Text>
                                         <Text as="p">
-                                            {earnings.reduce((sum, earning) => sum + (earning.epfEtf ? (earning.amount * 0.03) : 0), 0).toFixed(2)}
+                                            {((basicSalary + earnings.reduce((sum, earning) => sum + (earning.epfEtf ? earning.amount : 0), 0) - deductions.reduce((sum, deduction) => sum + deduction.amount, 0)) * 0.03).toFixed(2)}
                                         </Text>
                                     </div>
                                 </div>
