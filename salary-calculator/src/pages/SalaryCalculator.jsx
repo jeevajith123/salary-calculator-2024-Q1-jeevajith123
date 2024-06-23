@@ -7,6 +7,7 @@ import Close from "../assets/Group 821.png";
 import Add from "../assets/add.png";
 import Table from "../assets/Tabel.png";
 
+
 export default function SalaryCalculator() {
     const {
         basicSalary,
@@ -89,9 +90,9 @@ export default function SalaryCalculator() {
                 />
             </Helmet>
             {/* Salary Calculator Section */}
-            <div className="flex flex-col items-center justify-center gap-6 bg-gray-white px-4 py-8 md:flex-row md:p-5">
+            <div className="flex flex-col items-center justify-center gap-6 bg-gray-white px-4 py-8  md:flex-row md:p-5">
                 {/* Salary Input Section */}
-                <div className="flex w-680px h-616px mt-142px ml-128px justify-start">
+                <div className="flex w-680px h-[616px] mt-[20px] ml-128px justify-start">
                     {/* Salary Calculation Section */}
                     <div className="w-full rounded-lg border border-solid border-gray-300 bg-gray-50 p-4">
                         {/* Earning and deduction Section */}
@@ -249,7 +250,7 @@ export default function SalaryCalculator() {
                 </div>
 
                 {/* Salary Summary Section */}
-                <div className="flex w-480px h-[610px] mt-[10px] ml-128px justify-end">
+                <div className="flex w-480px h-[616px] mt-[20px] ml-128px justify-end">
                     <div className="flex flex-col items-center gap-[26px] rounded-lg border border-solid border-gray-300 bg-gray-white px-4 py-7 sm:py-5">
                         <Heading size="heading_4" as="h2" className="ml-2 self-start md:ml-0">
                             Your Salary
