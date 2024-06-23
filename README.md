@@ -17,17 +17,29 @@ The SalaryCalculator application you've provided is designed to help users estim
 
 ```
 .
-|---package.json
-|---postcss.config.js
+|---node_modules
 |---public
 |       |--favicon.ico
 |       |--index.html
 |       |--manifest.html
 |       |--robots.txt
-|---README.md
 |---src
-|    |--assets---------All project Images
-|    |       
-|
+|    |--assets--------- All project Images
+|    |--components----- UI and Detected common components       
+|    |--pages--------   All Route Pages
+|    |--App.jsx
+|    |--App.test.js
+|    |--index.jsx
+|    |--index.css--------  Other Global Styles
+|    |--tailwind.css------ Default Tailwind modules
+|    |--Routes.jsx ------- All Routes
+|    |--setupTests.js
+|    |--reportWebVitals.js
+|---.gitignore
+|---package-lock.json
+|---package.json
+|---postcss.config.js
+|---README.md
+|---tailwind.config.js
 
 ```
